@@ -9,6 +9,7 @@ function SampleClock() {
 
         this.boardContext.translate(this.width() / 2, this.height() / 2);
         this.context.translate(this.width() / 2, this.height() / 2);
+        this.context.rotate(-Math.PI / 2);
 
         this.draw_clock();
     } catch (e) {
@@ -29,17 +30,71 @@ SampleClock.prototype = {
         return Math.PI / 180 * angle;
     },
     hourRad: function (time) {
+        var h = time.getHours();
+        h = (h < 12) ? h : h - 12;
+        var m = time.getMinutes();
+        // console.log('h = ' + h + ', ' + 'm = ' + m);
+        return this.toRad(30 * h + (6 * m / 12));
     },
-    minutuRad: function (time) {
+    minuteRad: function (time) {
+        var m = time.getMinutes();
+        var s = time.getSeconds();
+        // console.log('m = ' + m + ', ' + 's = ' + s);
+        return this.toRad(6 * m + (6 * s / 60));
     },
     secondRad: function (time) {
+        var s = time.getSeconds();
+        var ms = time.getMilliseconds();
+        // console.log('s = ' + s + ', ' + 'ms = ' + ms);
+        return this.toRad(6 * s + (360 / 1000 * ms / 60));
     },
 
     draw_time: function () {
+        this.context.clearRect(-this.width() / 2, -this.height() / 2, this.width(), this.height());
+        this.context.lineCap = 'round';
+        this.context.shadowBlur = this.radius() * 0.012;
+        this.context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+        var now = new Date();
+
+        // 短針
+        var rad = this.hourRad(now);
+        // console.log('短針のradiusは' + rad);
+        this.context.save();
+        this.context.beginPath();
+        this.context.lineWidth = this.radius() * 0.05;
+        this.context.rotate(rad);
+        this.context.moveTo(-this.radius() * 0.05, 0);
+        this.context.lineTo(this.radius() * 0.5, 0);
+        this.context.stroke();
+        this.context.restore();
+
+        // 長針
+        rad = this.minuteRad(now);
+        // console.log('長針のradiusは' + rad);
+        this.context.save();
+        this.context.beginPath();
+        this.context.lineWidth = this.radius() * 0.03;
+        this.context.rotate(rad);
+        this.context.moveTo(-this.radius() * 0.1, 0);
+        this.context.lineTo(this.radius() * 0.75, 0);
+        this.context.stroke();
+        this.context.restore();
+
+        // 秒針
+        rad = this.secondRad(now);
+        // console.log('秒針のradiusは' + rad);
+        this.context.save();
+        this.context.beginPath();
+        this.context.lineWidth = this.radius() * 0.01;
+        this.context.strokeStyle = '#ff0000';
+        this.context.rotate(rad);
+        this.context.moveTo(-this.radius() * 0.15, 0);
+        this.context.lineTo(this.radius() * 0.8, 0);
+        this.context.stroke();
+        this.context.restore();
     },
 
     draw_clock: function () {
-        console.log('start draw clock...');
         this.boardContext.beginPath();
         this.boardContext.scale(0.9, 0.9);
         this.boardContext.lineWidth = this.radius() * 0.05;
@@ -71,10 +126,8 @@ SampleClock.prototype = {
             this.boardContext.rotate(this.toRad(6));
         }
         this.boardContext.stroke();
-
-        console.log('end draw clock...');
     }
 };
 
 var clock = new SampleClock();
-
+setInterval("clock.draw_time()", 1000 / 30);
