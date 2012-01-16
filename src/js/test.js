@@ -1,5 +1,9 @@
 var clock = new SampleClock();
-module('initialize');
+module('initialize', {
+    teardown: function () {
+        stop();
+    }
+});
 test('initialize', function () {
     expect(4);
     deepEqual(clock.board.id, 'board');
@@ -8,7 +12,11 @@ test('initialize', function () {
     deepEqual(clock.canvas.height, window.innerHeight);
 });
 
-module('property');
+module('property', {
+    teardown: function () {
+        stop();
+    }
+});
 test('size', function () {
     expect(3);
     deepEqual(clock.width(), window.innerWidth);
@@ -16,7 +24,11 @@ test('size', function () {
     deepEqual(clock.radius(), Math.min(window.innerWidth / 2, window.innerHeight / 2));
 });
 
-module('rad');
+module('rad', {
+    teardown: function () {
+        stop();
+    }
+});
 test('rad', function () {
     deepEqual(clock.toRad(360), Math.PI * 2);
 });

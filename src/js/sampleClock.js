@@ -34,19 +34,19 @@ SampleClock.prototype = {
         h = (h < 12) ? h : h - 12;
         var m = time.getMinutes();
         // console.log('h = ' + h + ', ' + 'm = ' + m);
-        return this.toRad((360 / 12) * h + ((360 / 12 / 60) * m));
+        return this.toRad((360 / 12) * h + (360 / 12 / 60) * m);
     },
     minuteRad: function (time) {
         var m = time.getMinutes();
         var s = time.getSeconds();
         // console.log('m = ' + m + ', ' + 's = ' + s);
-        return this.toRad((360 /  60) * m + ((360 / 60 / 60) * s));
+        return this.toRad((360 /  60) * m + (360 / 60 / 60) * s);
     },
     secondRad: function (time) {
         var s = time.getSeconds();
         var ms = time.getMilliseconds();
         // console.log('s = ' + s + ', ' + 'ms = ' + ms);
-        return this.toRad((360 / 60) * s + ((360 / 60 / 1000) * ms));
+        return this.toRad((360 / 60) * s + (360 / 60 / 1000) * ms);
         // return this.toRad(6 * s);
     },
 
