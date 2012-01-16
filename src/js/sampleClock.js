@@ -88,18 +88,33 @@ SampleClock.prototype = {
         this.context.lineWidth = this.radius() * 0.01;
         this.context.strokeStyle = '#ff0000';
         this.context.rotate(rad);
-        this.context.moveTo(-this.radius() * 0.15, 0);
+        this.context.moveTo(-this.radius() * 0.1, 0);
         this.context.lineTo(this.radius() * 0.8, 0);
         this.context.stroke();
+
+        this.context.beginPath();
+        this.context.arc(0, 0, this.radius() * 0.02, 0, Math.PI * 2, true);
+        this.context.fillStyle = '#ff0000';
+        this.context.fill();
+
+        this.context.beginPath();
+        this.context.arc(0, 0, this.radius() * 0.01, 0, Math.PI * 2, true);
+        this.context.fillStyle = '#000000';
+        this.context.fill();
         this.context.restore();
     },
 
     draw_clock: function () {
+        this.boardContext.shadowBlur = this.radius() * 0.015;
+        this.boardContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
+
+        this.boardContext.beginPath();
+        this.boardContext.arc(0, 0, this.radius() * 0.04, 0, Math.PI * 2, true);
+        this.boardContext.fill();
+
         this.boardContext.beginPath();
         this.boardContext.scale(0.9, 0.9);
         this.boardContext.lineWidth = this.radius() * 0.05;
-        this.boardContext.shadowBlur = this.radius() * 0.012;
-        this.boardContext.shadowColor = '#666666';
         this.boardContext.arc(0, 0, this.radius(), 0, Math.PI * 2, true);
         this.boardContext.stroke();
 
@@ -130,4 +145,14 @@ SampleClock.prototype = {
 };
 
 var clock = new SampleClock();
-setInterval("clock.draw_time()", 1000 / 30);
+var timer;
+
+function start() {
+    timer = setInterval('clock.draw_time()', 1000 / 30);
+}
+
+function stop() {
+    clearInterval(timer);
+}
+
+start();
