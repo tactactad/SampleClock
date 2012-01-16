@@ -34,19 +34,19 @@ SampleClock.prototype = {
         h = (h < 12) ? h : h - 12;
         var m = time.getMinutes();
         // console.log('h = ' + h + ', ' + 'm = ' + m);
-        return this.toRad(30 * h + (6 * m / 12));
+        return this.toRad((360 / 12) * h + ((360 / 12 / 60) * m));
     },
     minuteRad: function (time) {
         var m = time.getMinutes();
         var s = time.getSeconds();
         // console.log('m = ' + m + ', ' + 's = ' + s);
-        return this.toRad(6 * m + (6 * s / 60));
+        return this.toRad((360 /  60) * m + ((360 / 60 / 60) * s));
     },
     secondRad: function (time) {
         var s = time.getSeconds();
         var ms = time.getMilliseconds();
         // console.log('s = ' + s + ', ' + 'ms = ' + ms);
-        return this.toRad(6 * s + (360 / 1000 * ms / 60));
+        return this.toRad((360 / 60) * s + ((360 / 60 / 1000) * ms));
         // return this.toRad(6 * s);
     },
 
@@ -128,7 +128,7 @@ SampleClock.prototype = {
         for (var i = 0; i < 12; i++) {
             this.boardContext.moveTo(this.radius(), 0);
             this.boardContext.lineTo(this.radius() * 0.9, 0);
-            this.boardContext.rotate(this.toRad(30));
+            this.boardContext.rotate(this.toRad(360 / 12));
         }
         this.boardContext.stroke();
 
@@ -140,7 +140,7 @@ SampleClock.prototype = {
                 this.boardContext.moveTo(this.radius(), 0);
                 this.boardContext.lineTo(this.radius() * 0.97, 0);
             }
-            this.boardContext.rotate(this.toRad(6));
+            this.boardContext.rotate(this.toRad(360 / 60));
         }
         this.boardContext.stroke();
     }
