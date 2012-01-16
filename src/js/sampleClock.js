@@ -47,6 +47,7 @@ SampleClock.prototype = {
         var ms = time.getMilliseconds();
         // console.log('s = ' + s + ', ' + 'ms = ' + ms);
         return this.toRad(6 * s + (360 / 1000 * ms / 60));
+        // return this.toRad(6 * s);
     },
 
     draw_time: function () {
@@ -61,7 +62,7 @@ SampleClock.prototype = {
         // console.log('短針のradiusは' + rad);
         this.context.save();
         this.context.beginPath();
-        this.context.lineWidth = this.radius() * 0.05;
+        this.context.lineWidth = this.radius() * 0.06;
         this.context.rotate(rad);
         this.context.moveTo(-this.radius() * 0.05, 0);
         this.context.lineTo(this.radius() * 0.5, 0);
@@ -73,7 +74,7 @@ SampleClock.prototype = {
         // console.log('長針のradiusは' + rad);
         this.context.save();
         this.context.beginPath();
-        this.context.lineWidth = this.radius() * 0.03;
+        this.context.lineWidth = this.radius() * 0.04;
         this.context.rotate(rad);
         this.context.moveTo(-this.radius() * 0.1, 0);
         this.context.lineTo(this.radius() * 0.75, 0);
@@ -85,7 +86,7 @@ SampleClock.prototype = {
         // console.log('秒針のradiusは' + rad);
         this.context.save();
         this.context.beginPath();
-        this.context.lineWidth = this.radius() * 0.01;
+        this.context.lineWidth = this.radius() * 0.02;
         this.context.strokeStyle = '#ff0000';
         this.context.rotate(rad);
         this.context.moveTo(-this.radius() * 0.1, 0);
@@ -93,6 +94,7 @@ SampleClock.prototype = {
         this.context.stroke();
 
         this.context.beginPath();
+        this.context.shadowBlur = 0;
         this.context.arc(0, 0, this.radius() * 0.02, 0, Math.PI * 2, true);
         this.context.fillStyle = '#ff0000';
         this.context.fill();
@@ -109,7 +111,7 @@ SampleClock.prototype = {
         this.boardContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
 
         this.boardContext.beginPath();
-        this.boardContext.arc(0, 0, this.radius() * 0.04, 0, Math.PI * 2, true);
+        this.boardContext.arc(0, 0, this.radius() * 0.05, 0, Math.PI * 2, true);
         this.boardContext.fill();
 
         this.boardContext.beginPath();
@@ -148,7 +150,7 @@ var clock = new SampleClock();
 var timer;
 
 function start() {
-    timer = setInterval('clock.draw_time()', 1000 / 30);
+    timer = setInterval('clock.draw_time()', 1000 / 600);
 }
 
 function stop() {
