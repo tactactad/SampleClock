@@ -95,7 +95,7 @@ SampleClock.prototype = {
 
         this.context.beginPath();
         this.context.shadowBlur = 0;
-        this.context.arc(0, 0, this.radius() * 0.02, 0, Math.PI * 2, true);
+        this.context.arc(0, 0, this.radius() * 0.025, 0, Math.PI * 2, true);
         this.context.fillStyle = '#ff0000';
         this.context.fill();
 
