@@ -11,7 +11,7 @@ function SampleClock() {
         this.context.translate(this.width() / 2, this.height() / 2);
         this.context.rotate(-Math.PI / 2);
 
-        this.draw_clock();
+        this.draw_board();
     } catch (e) {
         alert('initialize error...');
     }
@@ -50,7 +50,6 @@ SampleClock.prototype = {
     },
 
     draw_time: function () {
-        // this.draw_clock();
         this.context.clearRect(-this.width() / 2, -this.height() / 2, this.width(), this.height());
         this.context.lineCap = 'round';
         this.context.shadowBlur = this.radius() * 0.012;
@@ -106,12 +105,11 @@ SampleClock.prototype = {
         this.context.restore();
     },
 
-    draw_clock: function () {
+    draw_board: function () {
         this.boardContext.clearRect(-this.width() / 2, -this.height() / 2, this.width(), this.height());
         this.boardContext.shadowBlur = this.radius() * 0.015;
         this.boardContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
 
-        this.boardContext.save();
         this.boardContext.beginPath();
         this.boardContext.arc(0, 0, this.radius() * 0.05, 0, Math.PI * 2, true);
         this.boardContext.fill();
@@ -137,7 +135,7 @@ SampleClock.prototype = {
         // 分の印
         this.boardContext.beginPath();
         this.boardContext.lineWidth = this.radius() * 0.02;
-        for (var i = 0; i < 60; i++) {
+        for (i = 0; i < 60; i++) {
             if (i % 5 !== 0) {
                 this.boardContext.moveTo(this.radius(), 0);
                 this.boardContext.lineTo(this.radius() * 0.97, 0);
@@ -145,25 +143,19 @@ SampleClock.prototype = {
             this.boardContext.rotate(this.toRad(360 / 60));
         }
         this.boardContext.stroke();
-        this.boardContext.restore();
     }
 };
 
 var clock = new SampleClock();
 var timer;
 
-function tikTok() {
+function tik() {
     clock.draw_time();
-    timer = setTimeout('tikTok()', 1000 / 600);
+    timer = setTimeout('tik()', 1000 / 60);
 }
 
-function start() {
-   timer = setInterval('clock.draw_time()', 1000 / 600);
-}
-
-function stop() {
+function tok() {
     clearInterval(timer);
 }
 
-//start();
-tikTok();
+tik();
