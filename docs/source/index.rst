@@ -15,6 +15,7 @@ Contents:
 
    first
    specifications
+   preparations
    canvas
    clock
    customize
