@@ -3,14 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to GuideBook's documentation!
-=====================================
+.. Welcome to GuideBook's documentation!
+
+SampleClock 〜Canvasでアナログ時計〜 を作ろう。
+===============================================
 
 Contents:
 
 .. toctree::
    :maxdepth: 2
 
+   first
+   specifications
+   canvas
+   clock
+   customize
+   appendix
 
 
 Indices and tables
