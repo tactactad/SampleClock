@@ -29,28 +29,28 @@ SampleClock.prototype = {
     toRad: function (angle) {
         return Math.PI / 180 * angle;
     },
-    hourRad: function (time) {
-        var h = time.getHours();
-        h = (h < 12) ? h : h - 12;
-        var m = time.getMinutes();
+    hourRad: function (datetime) {
+        var h = datetime.getHours() % 12;
+        var m = datetime.getMinutes();
         // console.log('h = ' + h + ', ' + 'm = ' + m);
         return this.toRad((360 / 12) * h + (360 / 12 / 60) * m);
     },
-    minuteRad: function (time) {
-        var m = time.getMinutes();
-        var s = time.getSeconds();
+    minuteRad: function (datetime) {
+        var m = datetime.getMinutes();
+        var s = datetime.getSeconds();
         // console.log('m = ' + m + ', ' + 's = ' + s);
-        return this.toRad((360 /  60) * m + (360 / 60 / 60) * s);
+        return this.toRad((360 / 60) * m + (360 / 60 / 60) * s);
     },
-    secondRad: function (time) {
-        var s = time.getSeconds();
-        var ms = time.getMilliseconds();
+    secondRad: function (datetime) {
+        var s = datetime.getSeconds();
+        var ms = datetime.getMilliseconds();
         // console.log('s = ' + s + ', ' + 'ms = ' + ms);
         return this.toRad((360 / 60) * s + (360 / 60 / 1000) * ms);
-        // return this.toRad(6 * s);
+        // return this.toRad((360 / 60) * s);
     },
 
     draw_time: function () {
+        // this.draw_clock();
         this.context.clearRect(-this.width() / 2, -this.height() / 2, this.width(), this.height());
         this.context.lineCap = 'round';
         this.context.shadowBlur = this.radius() * 0.012;
@@ -107,9 +107,11 @@ SampleClock.prototype = {
     },
 
     draw_clock: function () {
+        this.boardContext.clearRect(-this.width() / 2, -this.height() / 2, this.width(), this.height());
         this.boardContext.shadowBlur = this.radius() * 0.015;
         this.boardContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
 
+        this.boardContext.save();
         this.boardContext.beginPath();
         this.boardContext.arc(0, 0, this.radius() * 0.05, 0, Math.PI * 2, true);
         this.boardContext.fill();
@@ -143,18 +145,25 @@ SampleClock.prototype = {
             this.boardContext.rotate(this.toRad(360 / 60));
         }
         this.boardContext.stroke();
+        this.boardContext.restore();
     }
 };
 
 var clock = new SampleClock();
 var timer;
 
+function tikTok() {
+    clock.draw_time();
+    timer = setTimeout('tikTok()', 1000 / 600);
+}
+
 function start() {
-    timer = setInterval('clock.draw_time()', 1000 / 600);
+   timer = setInterval('clock.draw_time()', 1000 / 600);
 }
 
 function stop() {
     clearInterval(timer);
 }
 
-start();
+//start();
+tikTok();
