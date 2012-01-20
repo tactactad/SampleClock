@@ -94,12 +94,12 @@ SampleClock.prototype = {
 
         this.context.beginPath();
         this.context.shadowBlur = 0;
-        this.context.arc(0, 0, this.radius() * 0.025, 0, Math.PI * 2, true);
+        this.context.arc(0, 0, this.radius() * 0.025, 0, Math.PI * 2);
         this.context.fillStyle = '#ff0000';
         this.context.fill();
 
         this.context.beginPath();
-        this.context.arc(0, 0, this.radius() * 0.01, 0, Math.PI * 2, true);
+        this.context.arc(0, 0, this.radius() * 0.01, 0, Math.PI * 2);
         this.context.fillStyle = '#000000';
         this.context.fill();
         this.context.restore();
@@ -111,13 +111,13 @@ SampleClock.prototype = {
         this.boardContext.shadowColor = 'rgba(0, 0, 0, 0.5)';
 
         this.boardContext.beginPath();
-        this.boardContext.arc(0, 0, this.radius() * 0.05, 0, Math.PI * 2, true);
+        this.boardContext.arc(0, 0, this.radius() * 0.05, 0, Math.PI * 2);
         this.boardContext.fill();
 
         this.boardContext.beginPath();
         this.boardContext.scale(0.9, 0.9);
         this.boardContext.lineWidth = this.radius() * 0.05;
-        this.boardContext.arc(0, 0, this.radius(), 0, Math.PI * 2, true);
+        this.boardContext.arc(0, 0, this.radius(), 0, Math.PI * 2);
         this.boardContext.stroke();
 
         // 時の印
