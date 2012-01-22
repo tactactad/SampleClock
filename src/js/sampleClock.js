@@ -9,7 +9,7 @@ function SampleClock() {
 
         this.boardContext.translate(this.width() / 2, this.height() / 2);
         this.context.translate(this.width() / 2, this.height() / 2);
-        this.context.rotate(-Math.PI / 2);
+        this.context.rotate(this.toRad(-90));
 
         this.draw_board();
     } catch (e) {

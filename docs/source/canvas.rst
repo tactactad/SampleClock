@@ -2,6 +2,8 @@
 文字盤を描画しよう。
 ==============================
 
+まずは土台となる文字盤を描画する事にしましょう。SampleClockでは文字盤と時刻を示す“針”をそれぞれ別の要素へ描画します。画像ファイルは使わず *Canvas* を使って表現します。
+
 Canvasってなに
 ==============================
 
@@ -22,7 +24,7 @@ Canvasってなに
 
 .. note::
 
- ベクターイメージを扱うWebの技術としては *SVG* があります。こちらは *Canvas* よりもずっと古くからある仕様です。
+ ベクターイメージを扱うWebの技術としては *SVG* があります。こちらは *Canvas* よりもずっと古くからある技術です。当時は別途プラグインが必要だったりしてあまり普及しませんでした。
 
 *Safari* 1.3以降、 *Opera* 9以降、 *Firefox* 1.5以降、 *Google Chrome* と、最近のものであればほぼ全てのブラウザで実装されていますが、 *Internet Explorer* は9以降のバージョンでしか使えません。しかし、IE 6以降で使える `ExplorerCanvas <http://excanvas.sourceforge.net/>`_ というライブラリが *Google* から公開されています。
 
@@ -107,9 +109,9 @@ SampleClockではコンストラクタ内でcanvas要素のオブジェクトを
  context.arc(x, y, radius, startAngle, endAngle, anticlockwise);
 
 * x
-    描画する円の中心のX座標を指定します。
+    描画する円の中心のx座標を指定します。
 * y
-    描画する円の中心のY座標を指定します。
+    描画する円の中心のy座標を指定します。
 * radius
     描画する円の半径を指定します。
 * startAngle
@@ -180,7 +182,7 @@ Wikipediaさんに解説用の画像もあったので拝借してきました�
 
 .. note::
 
- *JavaScript* でπを表すには **Math** クラスで定義されている定数を使います。 ::
+ *JavaScript* でπを表すには **Math** オブジェクトで定義されている定数を使います。 ::
 
   Math.PI
 
@@ -195,12 +197,14 @@ Wikipediaさんに解説用の画像もあったので拝借してきました�
 
 .. code-block:: javascript
 
- draw_board: function () {
+ SampleClock.prototype = {
      ...
-     this.boardContext.beginPath();
-     this.boardContext.lineWidth = this.radius() * 0.05;
-     this.boardContext.arc(0, 0, this.radius() * 0.9, 0, Math.PI * 2);
-     this.boardContext.stroke();
+     draw_board: function () {
+         this.boardContext.beginPath();
+         this.boardContext.lineWidth = this.radius() * 0.05;
+         this.boardContext.arc(0, 0, this.radius() * 0.9, 0, Math.PI * 2);
+         this.boardContext.stroke();
+     },
      ...
  }
 
@@ -223,16 +227,20 @@ Wikipediaさんに解説用の画像もあったので拝借してきました�
 
 .. code-block:: javascript
 
- draw_board: function () {
-     ...
-     this.boardContext.beginPath();
-     this.boardContext.lineWidth = this.radius() * 0.03;
-     for (var i = 0; i < 12; i++) {
-         this.boardContext.moveTo(this.radius() * 0.85, 0);
-         this.boardContext.lineTo(this.radius() * 0.75, 0);
-         this.boardContext.rotate(this.toRad(360 / 12));
-     }
-     this.boardContext.stroke();
+ SampleClock.prototype = {
+     ....
+     draw_board: function () {
+         ...
+         this.boardContext.beginPath();
+         this.boardContext.lineWidth = this.radius() * 0.03;
+         for (var i = 0; i < 12; i++) {
+             this.boardContext.moveTo(this.radius() * 0.85, 0);
+             this.boardContext.lineTo(this.radius() * 0.75, 0);
+             this.boardContext.rotate(this.toRad(360 / 12));
+         }
+         this.boardContext.stroke();
+         ...
+     },
      ...
  }
 
