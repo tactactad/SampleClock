@@ -117,6 +117,17 @@
 
   this.context.strokeStyle = '#ff0000';
 
+.. image:: images/clock.png
+ :alt: 針
+ :align: center
+ :scale: 33
+
+こんな感じになると思います！
+
+.. warning::
+
+ こちらも小細工しているので全く同じにはなりません。線の開始位置を変えたりしてます。
+
 刻み続ける
 ==============================
 
