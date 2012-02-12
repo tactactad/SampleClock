@@ -21,6 +21,10 @@
 配布ファイルの説明
 ==============================
 
+.. warning::
+
+ 当日配布したファイルはこちらからダウンロードする事ができます。 `SampleClock.zip <http://reiare.net/site_media/file/20120211/SampleClock.zip>`_
+
 配布したファイルの説明をします。
 
 * src/以下
